@@ -12,8 +12,11 @@ public:
     int tileID;
 
     /* Ore type */
-    // -> Coal = 0
-    // -> Gold = 1
+    // -> None = 0;
+    // -> Coal = 1
+    // -> Gold = 2
+    // -> Diamonds = 3
+    // -> Iron = 4
     int oreType;
 
     int oreAmount;

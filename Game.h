@@ -27,7 +27,7 @@ private:
     void Render();
 
     sf::Vector2u windowSize{1920, 1080};
-    sf::String windowTitle{"SFLM Game class"};
+    sf::String windowTitle{"SFLM Ore"};
     sf::RenderWindow window{};
     static constexpr unsigned short framerateLimit = 120;
 

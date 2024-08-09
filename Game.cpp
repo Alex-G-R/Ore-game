@@ -33,10 +33,12 @@ void Game::Update()
     tileselector.Update(mousePosGrid, map);
 
     // Update Ui
-    coordinatesUI.updateText(mousePosScreen, mousePosWindow, mousePosView, mousePosGrid);
+    coordinatesUI.updateText(mousePosScreen, mousePosWindow, mousePosView, mousePosGrid, map.tileMap, map.mapSize);
 
     // Update view
     camera.Update(deltaTime);
+
+    map.update(map);
 
     // Update level on click
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))

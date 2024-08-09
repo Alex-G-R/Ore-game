@@ -29,11 +29,11 @@ void Camera::Update(float& deltaTime)
 
 void Camera::updateRenderDistance(float tileSizeF, int mapSize)
 {
-    fromY = view.getCenter().y / tileSizeF - 9;
-    toY =  view.getCenter().y / tileSizeF + 11;
+    fromY = view.getCenter().y / tileSizeF - 23;
+    toY =  view.getCenter().y / tileSizeF + 25;
 
-    fromX = view.getCenter().x / tileSizeF - 9;
-    toX = view.getCenter().x / tileSizeF + 11;
+    fromX = view.getCenter().x / tileSizeF - 23;
+    toX = view.getCenter().x / tileSizeF + 25;
 
     if(fromX < 0)
         fromX = 0;

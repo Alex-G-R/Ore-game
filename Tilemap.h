@@ -10,10 +10,11 @@
 
 class Tilemap {
 private:
-    std::vector<std::vector<Tile>> tileMap;
     sf::Texture tilesetTexture;
+    void setTileId(Tile& tile);
 
 public:
+    std::vector<std::vector<Tile>> tileMap;
 
     float tileSizeF = 50.f;
     unsigned tileSize = static_cast<unsigned>(tileSizeF);
@@ -33,6 +34,7 @@ public:
     void subtractOre(sf::Vector2i& mousePosGrid, Tilemap& map);
     void addOre(sf::Vector2i& mousePosGrid, Tilemap& map);
     void changeOreType(sf::Vector2i& mousePosGrid, Tilemap& map);
+    void update(Tilemap& map);
     void resetTiles(Tilemap& map);
 
     // Render method to draw tiles

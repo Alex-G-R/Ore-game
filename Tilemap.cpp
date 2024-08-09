@@ -51,66 +51,8 @@ bool Tilemap::load(const std::string& tilesetFilename) {
             tile.shape.setPosition(x * tileSize, y * tileSize);
             tile.shape.setTexture(&tilesetTexture);
 
-            // Set TileID based on Coal amount
-            if(tile.oreAmount >= 10)
-            {
-                if(tile.oreType == 0)
-                {
-                    tile.tileID = 5;
-                }
-                else if(tile.oreType == 1)
-                {
-                    tile.tileID = 10;
-                }
-            }
-            else if(tile.oreAmount >= 8)
-            {
-                if(tile.oreType == 0)
-                {
-                    tile.tileID = 4;
-                }
-                else if(tile.oreType == 1)
-                {
-                    tile.tileID = 9;
-                }
-            }
-            else if(tile.oreAmount >= 6)
-            {
-                if(tile.oreType == 0)
-                {
-                    tile.tileID = 3;
-                }
-                else if(tile.oreType == 1)
-                {
-                    tile.tileID = 8;
-                }
-            }
-            else if (tile.oreAmount >= 3)
-            {
-                if(tile.oreType == 0)
-                {
-                    tile.tileID = 2;
-                }
-                else if(tile.oreType == 1)
-                {
-                    tile.tileID = 7;
-                }
-            }
-            else if(tile.oreAmount >= 1)
-            {
-                if(tile.oreType == 0)
-                {
-                    tile.tileID = 1;
-                }
-                else if(tile.oreType == 1)
-                {
-                    tile.tileID = 6;
-                }
-            }
-            else
-            {
-                tile.tileID = 0;
-            }
+            // Set TileID based on oreAmount and ore Type
+            setTileId(tile);
 
             // Set the texture rectangle based on the tileID
             if (tile.tileID >= 0) {
@@ -209,6 +151,7 @@ void Tilemap::subtractOre(sf::Vector2i& mousePosGrid, Tilemap& map)
         {
             Tile& tile = tileMap[mousePosGrid.x][mousePosGrid.y]; // Access the tile in the map
 
+
             if(tile.oreAmount >= 1)
                 tile.oreAmount--;
 
@@ -230,13 +173,15 @@ void Tilemap::changeOreType(sf::Vector2i& mousePosGrid, Tilemap& map)
         {
             Tile& tile = tileMap[mousePosGrid.x][mousePosGrid.y]; // Access the tile in the map
 
-            if(tile.oreType == 0)
+            if(tile.oreType == 4)
             {
-                tile.oreType = 1;
+                tile.oreType = 0;
             }
             else
             {
-                tile.oreType = 0;
+                tile.oreType++;
+                if(tile.oreAmount == 0)
+                    tile.oreAmount = 1;
             }
 
             if (!map.load("assets/tilemap.png"))
@@ -258,3 +203,134 @@ void Tilemap::resetTiles(Tilemap& map)
     if (!map.load("assets/tilemap.png"))
         throw std::runtime_error("Cannot load tileset.png");
 }
+
+void Tilemap::update(Tilemap& map)
+{
+    // Clean all ore on no-ore tiles
+    for (int i = 0; i < gridHeight; ++i)
+    {
+        for (int j = 0; j < gridWidth; ++j)
+        {
+            if(tileMap[i][j].oreAmount != 0 && tileMap[i][j].oreType == 0)
+            {
+                tileMap[i][j].oreAmount = 0;
+
+                if (!map.load("assets/tilemap.png"))
+                    throw std::runtime_error("Cannot load tileset.png");
+            }
+
+            if(tileMap[i][j].oreAmount == 0 && tileMap[i][j].oreType != 0)
+            {
+                tileMap[i][j].oreType = 0;
+
+                if (!map.load("assets/tilemap.png"))
+                    throw std::runtime_error("Cannot load tileset.png");
+            }
+
+        }
+    }
+}
+
+void Tilemap::setTileId(Tile& tile)
+{
+    if(tile.oreAmount >= 10)
+     {
+         if(tile.oreType == 1)
+         {
+             tile.tileID = 5;
+         }
+         else if(tile.oreType == 2)
+         {
+             tile.tileID = 10;
+         }
+         else if(tile.oreType == 3)
+         {
+             tile.tileID = 15;
+         }
+         else if(tile.oreType == 4)
+         {
+             tile.tileID = 20;
+         }
+     }
+     else if(tile.oreAmount >= 8)
+     {
+         if(tile.oreType == 1)
+         {
+             tile.tileID = 4;
+         }
+         else if(tile.oreType == 2)
+         {
+             tile.tileID = 9;
+         }
+         else if(tile.oreType == 3)
+         {
+             tile.tileID = 14;
+         }
+         else if(tile.oreType == 4)
+         {
+             tile.tileID = 19;
+         }
+     }
+     else if(tile.oreAmount >= 6)
+     {
+         if(tile.oreType == 1)
+         {
+             tile.tileID = 3;
+         }
+         else if(tile.oreType == 2)
+         {
+             tile.tileID = 8;
+         }
+         else if(tile.oreType == 3)
+         {
+             tile.tileID = 13;
+         }
+         else if(tile.oreType == 4)
+         {
+             tile.tileID = 18;
+         }
+     }
+     else if (tile.oreAmount >= 3)
+     {
+         if(tile.oreType == 1)
+         {
+             tile.tileID = 2;
+         }
+         else if(tile.oreType == 2)
+         {
+             tile.tileID = 7;
+         }
+         else if(tile.oreType == 3)
+         {
+             tile.tileID = 12;
+         }
+         else if(tile.oreType == 4)
+         {
+             tile.tileID = 17;
+         }
+     }
+     else if(tile.oreAmount >= 1)
+     {
+         if(tile.oreType == 1)
+         {
+             tile.tileID = 1;
+         }
+         else if(tile.oreType == 2)
+         {
+             tile.tileID = 6;
+         }
+         else if(tile.oreType == 3)
+         {
+             tile.tileID = 11;
+         }
+         else if(tile.oreType == 4)
+         {
+             tile.tileID = 16;
+         }
+     }
+     else
+     {
+         tile.tileID = 0;
+     }
+}
+
