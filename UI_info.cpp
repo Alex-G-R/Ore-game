@@ -28,8 +28,26 @@ void UI_info::updateText(sf::Vector2i& mousePosScreen, sf::Vector2i& mousePosWin
         << "Ore amount: " << tile.oreAmount << "\n";
     }
 
-
+    text.setPosition(20.f, 20.f);
+    text.setCharacterSize(36);
     text.setString(ss.str());
+}
+
+void UI_info::displayControls(sf::RenderWindow& window)
+{
+
+    std::stringstream ss;
+    // Add info about controls
+    ss << "Middle mouse button: add / change ore type \n"
+    << "Left mouse button: increment ore amount by 1 \n"
+    << "Right mouse button: decrement ore amount by 1 \n"
+    << "R: Reset map \n";
+
+    text.setPosition(20.f, window.getSize().y - 130.f);
+    text.setCharacterSize(24);
+    text.setString(ss.str());
+
+    Render(window);
 }
 
 void UI_info::Render(sf::RenderWindow& window)

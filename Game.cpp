@@ -90,6 +90,7 @@ void Game::Render()
     // Ui
     window.setView(window.getDefaultView());
     coordinatesUI.Render(window);
+    coordinatesUI.displayControls(window);
 
     //End render
     window.display();
